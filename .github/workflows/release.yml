@@ -4,6 +4,8 @@ on:
     secrets:
       NPM_TOKEN:
         required: true
+      CODECOV_TOKEN:
+        required: true
 
 jobs:
   release:
@@ -29,5 +31,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
-      - name: Upload Code Coverage
-        uses: codecov/codecov-action@v3.1.0
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
